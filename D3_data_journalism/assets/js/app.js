@@ -116,36 +116,53 @@ function renderCircles(circlesGroup, newXScale, chosenXAxis) {
   }
 
 //TODO function used for updating circles group with new tooltip
-// function updateToolTip(chosenXAxis, circlesGroup) {
+function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
 
-//     var label;
+    var label;
   
-//     if (chosenXAxis === "poverty") {
-//       label = "In Poverty %:";
-//     }
-//     else {
-//       label = "# of Albums:";
-//     }
+    if (chosenXAxis === "poverty") {
+      label = "In Poverty (%): ";
+    }
+    else if (chosenXAxis === "age") {
+      label = "Age (Median): ";
+    }
+    else {
+      label = "Household Income (Median): ";
+
+    }
+    var label2;
   
-//     var toolTip = d3.tip()
-//       .attr("class", "tooltip")
-//       .offset([80, -60])
-//       .html(function(d) {
-//         return (`${d.state}<br>${label} ${d[chosenXAxis]}`);
-//       });
+    if (chosenYAxis === "healthcare") {
+      label2 = "Lacking Healthcare(%): ";
+    }
+    else if (chosenYAxis === "smokes") {
+      label2 = "Smokers(%): ";
+    }
+    else {
+      label2 = "Obese(%): ";
+
+    }
+
+    var toolTip = d3.tip()
+      .attr("class", "d3-tip")
+      .offset([80, -60])
+      .html(function(d) {
+        return (`${d.state}<br>${label} ${d[chosenXAxis]}<br>${label2} ${d[chosenYAxis]}`);
+       
+      });
   
-//     circlesGroup.call(toolTip);
+    circlesGroup.call(toolTip);
   
-//     circlesGroup.on("mouseover", function(data) {
-//       toolTip.show(data);
-//     })
-//       // onmouseout event
-//       .on("mouseout", function(data, index) {
-//         toolTip.hide(data);
-//       });
+    circlesGroup.on("mouseover", function(data) {
+      toolTip.show(data, this);
+    })
+      // onmouseout event
+      .on("mouseout", function(data, index) {
+        toolTip.hide(data);
+      });
   
-//     return circlesGroup;
-//   }
+    return circlesGroup;
+  }
 
 // Import Data
 d3.csv("./assets/data/data.csv").then(function(stateData, err) {
@@ -269,6 +286,7 @@ var obeseLabel = ylabelsGroup.append("text")
 .text("Obese (%)");
 
 
+circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
 
 // x axis labels event listener
 xlabelsGroup.selectAll("text")
@@ -296,7 +314,7 @@ xlabelsGroup.selectAll("text")
     stateAbbr = renderAbbr(stateAbbr, xLinearScale, chosenXAxis);
 
     // TODO updates tooltips with new info
-    // circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
+    circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
 
     // changes classes to change bold text
     if (chosenXAxis === "poverty") {
@@ -309,18 +327,26 @@ xlabelsGroup.selectAll("text")
       incomeLabel
         .classed("active", false)
         .classed("inactive", true);
-    }
-    else if(chosenXAxis === "age"){
-      povertyLabel
+      circlesGroup
+        .classed("stateCircle", true)
+        .classed("stateCircle2", false)
+        .classed("stateCircle3", false)
+      }
+      else if(chosenXAxis === "age"){
+        povertyLabel
         .classed("active", false)
         .classed("inactive", true);
-      ageLabel
+        ageLabel
         .classed("active", true)
         .classed("inactive", false);
-      incomeLabel
+        incomeLabel
         .classed("active", false)
         .classed("inactive", true);
-    }
+        circlesGroup
+        .classed("stateCircle", false)
+        .classed("stateCircle2", true)
+        .classed("stateCircle3", false)
+      }
     else{
       povertyLabel
         .classed("active", false)
@@ -331,6 +357,10 @@ xlabelsGroup.selectAll("text")
       incomeLabel
         .classed("active", true)
         .classed("inactive", false);
+      circlesGroup
+        .classed("stateCircle", false)
+        .classed("stateCircle2", false)
+        .classed("stateCircle3", true)
     }
   }
 })
@@ -360,7 +390,9 @@ xlabelsGroup.selectAll("text")
       //update abbreviation text inside circles
       stateAbbr = renderYAbbr(stateAbbr, yLinearScale, chosenYAxis);
 
+      circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
 
+      
 // changes classes to change bold text
 if (chosenYAxis === "healthcare") {
   healthLabel

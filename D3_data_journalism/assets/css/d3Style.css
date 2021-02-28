@@ -36,6 +36,16 @@
   stroke: #f1bbea;
 }
 
+.stateCircle2 {
+  fill: #f5aa07;
+  stroke: #f5aa07;
+}
+
+.stateCircle3 {
+  fill: #6ed40e;
+  stroke: #6ed40e;
+}
+
 .chart {
   display: block;
   margin: 0;
