@@ -210,7 +210,7 @@ var circlesGroup = chartGroup.selectAll("circle")
   .attr("cy", d => yLinearScale(d[chosenYAxis]))
   .attr("r", 10)
   .classed("stateCircle", true)
-  .attr("opacity", ".5");
+  .attr("opacity", ".4");
   
   // Add the state abbreviations to the circles
   
@@ -327,10 +327,7 @@ xlabelsGroup.selectAll("text")
       incomeLabel
         .classed("active", false)
         .classed("inactive", true);
-      circlesGroup
-        .classed("stateCircle", true)
-        .classed("stateCircle2", false)
-        .classed("stateCircle3", false)
+  
       }
       else if(chosenXAxis === "age"){
         povertyLabel
@@ -342,10 +339,7 @@ xlabelsGroup.selectAll("text")
         incomeLabel
         .classed("active", false)
         .classed("inactive", true);
-        circlesGroup
-        .classed("stateCircle", false)
-        .classed("stateCircle2", true)
-        .classed("stateCircle3", false)
+       
       }
     else{
       povertyLabel
@@ -357,10 +351,7 @@ xlabelsGroup.selectAll("text")
       incomeLabel
         .classed("active", true)
         .classed("inactive", false);
-      circlesGroup
-        .classed("stateCircle", false)
-        .classed("stateCircle2", false)
-        .classed("stateCircle3", true)
+     
     }
   }
 })

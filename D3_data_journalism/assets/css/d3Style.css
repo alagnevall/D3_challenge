@@ -12,7 +12,7 @@
 }
 
 .inactive {
-  font-weight: lighter;
+  font-weight: lighter 
   fill: #c9c9c9;
   transition: fill 0.3s ease-out;
   text-anchor: middle;
@@ -27,28 +27,21 @@
 .stateText {
   font-family: sans-serif;
   font-size:12px;
-  fill: rgb(96, 24, 105);
+  fill:WHITE;
   text-anchor: middle;
 }
 
 .stateCircle {
-  fill: #f1bbea;
-  stroke: #f1bbea;
+  fill: #044855;
+  stroke: #044855;
 }
 
-.stateCircle2 {
-  fill: #f5aa07;
-  stroke: #f5aa07;
-}
-
-.stateCircle3 {
-  fill: #6ed40e;
-  stroke: #6ed40e;
-}
 
 .chart {
   display: block;
   margin: 0;
+  background-color: gainsboro;
+
 }
 
 .d3-tip {
